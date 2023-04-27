@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { FormWrapper, Label, Input, Button } from './NewTodoForm.styles';
 import { NewTodoFormProps } from './NewTodoForm.types';
 
-const NewTodoForm: React.FC<NewTodoFormProps> = ({ createTodo }) => {
+export const NewTodoForm: React.FC<NewTodoFormProps> = ({ createTodo }) => {
   const [task, setTask] = useState<string>('');
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,5 +31,3 @@ const NewTodoForm: React.FC<NewTodoFormProps> = ({ createTodo }) => {
     </FormWrapper>
   );
 };
-
-export default NewTodoForm;

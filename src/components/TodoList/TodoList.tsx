@@ -1,6 +1,6 @@
 import { TodoItem } from './TodoList.types';
 import React, { useState } from 'react';
-import NewTodoForm from '../NewTodoForm/NewTodoForm';
+import { NewTodoForm } from '../NewTodoForm/';
 import {
   TodoListContainer,
   TodoListTitle,
