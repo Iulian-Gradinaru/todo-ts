@@ -1,13 +1,15 @@
-import { TodoItem } from './TodoList.types';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { Transition, TransitionGroup } from 'react-transition-group';
 import { NewTodoForm } from '../NewTodoForm/';
+import { Todo } from '../Todo';
+
 import {
   TodoListContainer,
   TodoListTitle,
-  TodoListButtons,
+  TodoButton,
 } from './TodoList.styles';
-import { Todo } from '../Todo';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
+import { TodoItem } from './TodoList.types';
 
 export const TodoList: React.FC = () => {
   const [todos, setTodos] = useState<TodoItem[]>([]);
@@ -45,17 +47,20 @@ export const TodoList: React.FC = () => {
   };
 
   const todoItems = todos.map((todo: TodoItem) => (
-    <CSSTransition key={todo.id} timeout={500}>
-      <Todo
-        key={todo.id}
-        id={todo.id}
-        task={todo.task}
-        completed={todo.completed}
-        removeTodo={remove}
-        updateTodo={update}
-        toggleTodo={toggleCompletion}
-      />
-    </CSSTransition>
+    <Transition key={todo.id} timeout={500} classNames="todo-item">
+      {(state) => (
+        <Todo
+          key={todo.id}
+          id={todo.id}
+          task={todo.task}
+          completed={todo.completed}
+          removeTodo={remove}
+          updateTodo={update}
+          toggleTodo={toggleCompletion}
+          state={state}
+        />
+      )}
+    </Transition>
   ));
 
   return (
@@ -68,9 +73,9 @@ export const TodoList: React.FC = () => {
       <ul>
         <TransitionGroup>{todoItems}</TransitionGroup>
       </ul>
-      <TodoListButtons>
-        <button onClick={clearAll}>Clear All</button>
-      </TodoListButtons>
+      <div>
+        <TodoButton onClick={clearAll}>Clear All</TodoButton>
+      </div>
     </TodoListContainer>
   );
 };

@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { TodoProps } from './Todo.types';
-
+/**
+ * Imports styles
+ */
 import { TodoWrapper, TodoText, TodoButton } from './Todo.styles';
 
+/**
+ * Imports types
+ */
+import { TodoProps } from './Todo.types';
+
+/**
+ * Displays the component
+ */
 export const Todo: React.FC<TodoProps> = ({
   id,
   task,
@@ -12,27 +21,49 @@ export const Todo: React.FC<TodoProps> = ({
   updateTodo,
   toggleTodo,
 }) => {
-  const [isEditing, setIsEditing] = React.useState<boolean>(false);
-  const [newTask, setNewTask] = React.useState<string>(task);
+  /**
+   * Initializes the editing state
+   */
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
+  /**
+   * Initializes the new task state
+   */
+  const [newTask, setNewTask] = useState<string>(task);
+
+  /**
+   * Handles the remove change
+   */
   const handleRemove = () => {
     removeTodo(id);
   };
 
+  /**
+   * Handles the toggle change
+   */
   const handleToggle = () => {
     toggleTodo(id);
   };
 
+  /**
+   * Handles the update change
+   */
   const handleUpdate = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     updateTodo(id, newTask);
     setIsEditing(false);
   };
 
+  /**
+   * Handles changing the input change
+   */
   const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setNewTask(evt.target.value);
   };
 
+  /**
+   * Handles the edit click change
+   */
   const handleEditClick = () => {
     setIsEditing(true);
   };
